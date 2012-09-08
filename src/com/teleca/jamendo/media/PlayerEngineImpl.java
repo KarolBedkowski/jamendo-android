@@ -220,12 +220,21 @@ public class PlayerEngineImpl implements PlayerEngine {
                     // Mantain the settings of the equalizer for the new media
                     Equalizer newEqualizer = new Equalizer(0, mCurrentMediaPlayer.getAudioSessionId());
                     if (equalizer != null) {
-                    	newEqualizer.setProperties(equalizer.getProperties());
+						try {
+							newEqualizer.setProperties(equalizer
+									.getProperties());
+						} catch (IllegalArgumentException err) {
+							Log.e(JamendoApplication.TAG,
+									"PlayerEngine equalizer", err);
+						}
 					}
                     
                     // Enable equalizer before media starts
                     JamendoApplication.getInstance().setMyEqualizer(newEqualizer);
-                    JamendoApplication.getInstance().getMyEqualizer().setEnabled(true);
+					if (newEqualizer != null) {
+						JamendoApplication.getInstance().getMyEqualizer()
+								.setEnabled(true);
+					}
                     mCurrentMediaPlayer.start();
 				}
 			} else {

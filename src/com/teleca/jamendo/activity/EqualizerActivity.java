@@ -26,6 +26,7 @@ import android.app.Activity;
 import android.media.AudioManager;
 import android.media.audiofx.Equalizer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.RadioButton;
@@ -83,8 +84,12 @@ public class EqualizerActivity extends Activity{
 		}
     	
     	// If neither preset was choosed so custom button is checked
-    	if (mEqualizer.getCurrentPreset() == -1) {
-			mRadioGroup.check(custom.getId());
+		try {
+			if (mEqualizer.getCurrentPreset() == -1) {
+				mRadioGroup.check(custom.getId());
+			}
+		} catch (IllegalArgumentException e) {
+			Log.e(JamendoApplication.TAG, "Equalizer Activity error", e);
 		}
     	
     	// Activity for custom button, will always show the dialog

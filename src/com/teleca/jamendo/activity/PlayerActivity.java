@@ -773,9 +773,11 @@ public class PlayerActivity extends Activity {
 	}
 	
 	public void equalizerOnClick(View v) {
-		Intent intent = new Intent(this, EqualizerActivity.class);
-		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		startActivity(intent);
+		if (JamendoApplication.getInstance().getMyEqualizer() != null) {
+			Intent intent = new Intent(this, EqualizerActivity.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(intent);
+		}
 	}
 	
 	public void lyricsOnClick(View v) {
